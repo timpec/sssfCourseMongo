@@ -12,7 +12,7 @@ router.route('/')
       gender: "male",// String,
       color: "green", // String,
       weight: "1", //Number
-      owner: "5e7a7a1bbbd84b27bc9f2ef9"
+      owner: "5e7cc54eb65a4941a98f4a81"
     });
     res.send(`Added cat: ${myCat.name}`);
   })
