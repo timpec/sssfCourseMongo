@@ -3,23 +3,48 @@
 const router = require('express').Router();
 const cat = require('../model/catModel');
 
-router.route('/')
+router.route('/:gender?/:age?/:weight?')
   .post(async (req, res) => {
     console.log(req.body)
-    const myCat = await cat.create({
-      name: req.body.name,
-      age: req.body.age,
-      gender: req.body.gender,
-      color: req.body.color,
-      weight: req.body.weight,
-      //owner: "5e7cc54eb65a4941a98f4a81"
-    });
-    res.send(`Added cat: ${myCat.name}`);
+    try{
+      const myCat = await cat.create({
+        name: req.body.name,
+        age: req.body.age,
+        gender: req.body.gender,
+        color: req.body.color,
+        weight: req.body.weight,
+      });
+      res.send(`Added cat: ${myCat.name}`);
+    }
+    catch (e) {
+      console.log('error', e.message);
+      res.json({message: e.message})
+  }
   })
   .get(async (req, res) => {
-    console.log("All the cats..")
-    res.send(await cat.find());
-  })
+    console.log(req.query)
+    if (req.query.gender === undefined) {
+      console.log("All the cats..")
+      res.send(await cat.find());
+    } else {
+    try {
+      const data = req.query
+      console.log(data)
+      res.send(await cat.find({
+       // $and: [
+        gender: data.gender,
+        //{age: data.age},
+        //{weight: data.weight}
+      //]
+      })) //{age: age, weight: weight}
+    //res.send('With this endpoint you can get one station');
+  }
+  catch(e) {
+    console.error('station_get', e);
+    res.status(500).json({message: e.message});
+  }
+}
+})
   .patch(async (req, res) => {
     const mod = await cat.updateOne({ _id: req.body.id });
     res.status(200).send(`updated sucessfully ${mod.name} cats stats`);
@@ -28,6 +53,11 @@ router.route('/')
     const del = await cat.deleteOne({ _id: req.body.id });
     res.send(`deleted cat ${del.name}`);
   });
+
+  router.get('/:age?/:weight?')
+  .get(async (req, res) => {
+
+  })
 
 
 /*

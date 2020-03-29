@@ -6,7 +6,7 @@ const catSchema = new Schema({
   name:  String,
   age: {
     type: Number,
-    min: [0, 'Agen cant be negative']
+    min: [0, 'Age cant be negative']
   },
   gender: {
     type: String,

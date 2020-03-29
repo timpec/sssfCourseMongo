@@ -7,6 +7,7 @@ const db = require('./model/db');
 const cats = require('./routes/catRoute');
 const users = require('./routes/userRoute');
 
+app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use('/cats', cats);
 app.use('/user', users);
