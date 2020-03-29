@@ -3,9 +3,9 @@
 const router = require('express').Router();
 const cat = require('../model/catModel');
 
-// Hardcoded for testing
 router.route('/')
   .post(async (req, res) => {
+    console.log(req.body)
     const myCat = await cat.create({
       name: req.body.name,
       age: req.body.age,
