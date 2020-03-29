@@ -11,7 +11,7 @@ router.route('/')
       age: req.body.age,
       gender: req.body.gender,
       color: req.body.color,
-      weight: req.color.weight,
+      weight: req.body.weight,
       //owner: "5e7cc54eb65a4941a98f4a81"
     });
     res.send(`Added cat: ${myCat.name}`);
