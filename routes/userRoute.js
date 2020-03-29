@@ -7,8 +7,8 @@ router.route('/')
   .post(async (req, res) => {
     const myUser = await user.create({
       name: "testUser", //req.body.name,
-      email: "user@mail.fi",
-      password: "asd123"
+      email: "user@mail.fi", // req.body.email
+      password: "asd123" // req.body.password
     });
     res.send(`Added user: ${myUser.name}`);
   })

@@ -7,19 +7,28 @@ const cat = require('../model/catModel');
 router.route('/')
   .post(async (req, res) => {
     const myCat = await cat.create({
-      name: "testCat2", //req.body.name,
-      age: "2", //req.body.age,
-      gender: "male",// String,
-      color: "green", // String,
-      weight: "1", //Number
-      owner: "5e7cc54eb65a4941a98f4a81"
+      name: req.body.name,
+      age: req.body.age,
+      gender: req.body.gender,
+      color: req.body.color,
+      weight: req.color.weight,
+      //owner: "5e7cc54eb65a4941a98f4a81"
     });
     res.send(`Added cat: ${myCat.name}`);
   })
   .get(async (req, res) => {
-    console.log("Cats..")
-    res.send(await cat.find().populate('owner'));
+    console.log("All the cats..")
+    res.send(await cat.find());
+  })
+  .patch(async (req, res) => {
+    const mod = await cat.updateOne({ _id: req.body.id });
+    res.status(200).send(`updated sucessfully ${mod.name} cats stats`);
+  })
+  .delete(async (req, res) => {
+    const del = await cat.deleteOne({ _id: req.body.id });
+    res.send(`deleted cat ${del.name}`);
   });
+
 
 /*
 router.route('/:id')
